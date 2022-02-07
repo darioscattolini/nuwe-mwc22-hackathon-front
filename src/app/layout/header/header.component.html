@@ -22,10 +22,18 @@
     </a>
   </div>
 
+  <div *ngIf="isUserLogged; then isLogged else isNotLogged"></div>
+</header>
+
+<ng-template #isLogged>
+  Content to render when condition is true.
+</ng-template>
+
+<ng-template #isNotLogged>
   <div class="header-actions">
     <a href="javascript://" class="nav-link nav-icon-text">
       <cds-icon shape="user"></cds-icon>
-      <span class="nav-text">Log In</span>
+      <span class="nav-text">Sign Up / Log In</span>
     </a>
   </div>
-</header>
+</ng-template>
