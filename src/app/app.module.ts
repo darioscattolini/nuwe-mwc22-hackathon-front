@@ -5,17 +5,19 @@ import { ClarityModule } from '@clr/angular';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from './layout/layout.module';
 import { AppComponent } from './app.component';
+import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   imports: [
-    AppRoutingModule,
     BrowserModule,
     BrowserAnimationsModule,
     ClarityModule,
-    LayoutModule
+    LayoutModule,
+    UserModule,
+    AppRoutingModule  // must come last
   ],
   providers: [],
   bootstrap: [AppComponent]
