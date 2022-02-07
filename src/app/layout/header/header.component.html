@@ -22,7 +22,7 @@
     </a>
   </div>
 
-  <div *ngIf="isUserLogged; then isLogged else isNotLogged"></div>
+  <div *ngIf="loggedUser; then isLogged else isNotLogged"></div>
 </header>
 
 <ng-template #isLogged>
