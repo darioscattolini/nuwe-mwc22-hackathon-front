@@ -9,6 +9,4 @@ ClarityIcons.addIcons(userIcon);
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
-  title = 'mwc22';
-}
+export class AppComponent { }
