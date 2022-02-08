@@ -1,15 +1,30 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'mwc-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
+  public email: string = '';
+  public invalidLogin = false;
+  public password: string = '';
 
-  constructor() { }
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) { }
 
-  ngOnInit(): void {
+  logIn() {
+    console.log(this.email + this.password);
+    const isValid = this.userService.logIn(this.email, this.password);
+
+    if (isValid) {
+      this.router.navigate(['']);
+    } else {
+      this.invalidLogin = true;
+    }
   }
-
 }

@@ -1,0 +1,21 @@
+// override opinionated Clarity styles
+.login-wrapper {
+  background: unset;
+  background-size: unset;
+  background-position: unset;
+  background-repeat: unset;
+}
+
+.login-wrapper .login::after {
+  content: none;
+}
+// end of override
+
+.login-wrapper .login {
+  padding-top: 0;
+  justify-content: unset;
+}
+
+.login-wrapper {
+  justify-content: center;
+}

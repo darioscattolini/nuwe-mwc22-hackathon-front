@@ -1,1 +1,45 @@
-<p>login works!</p>
+<div class="login-wrapper">
+  <form class="login">
+    <section class="title">
+      <h3 class="welcome">Welcome to</h3>
+      Nuwe MWC2022 Hackathon
+      
+      <h5 class="hint">
+        Use your user data to sign in or 
+        <a routerLink="/sign-up">
+          create a new profile if you haven't registered yet
+        </a>
+      </h5>
+    </section>
+    
+    <div class="login-group">
+      <clr-input-container>
+        <label class="clr-sr-only">Email</label>
+        <input type="email" name="email" clrInput required
+          placeholder="Email" 
+          [(ngModel)]="email" 
+        />
+      </clr-input-container>
+
+      <clr-password-container>
+        <label class="clr-sr-only">Password</label>
+        <input type="password" name="password" clrPassword required
+          placeholder="Password" 
+          [(ngModel)]="password" 
+        />
+      </clr-password-container>
+
+      <div class="error" [ngClass]="invalidLogin ? 'active' : ''">
+        Wrong email or password
+      </div>
+
+      <button type="submit" class="btn btn-primary" (click)="logIn()">
+        Log in
+      </button>
+      
+      <p>
+        <a routerLink="/sign-up">Sign up to create a new profile</a>
+      </p>
+    </div>
+  </form>
+</div>

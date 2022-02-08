@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
+import { ClarityModule } from '@clr/angular';
+import { FormsModule } from '@angular/forms';
 import { UserRoutingModule } from './user-routing.module';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -9,6 +11,8 @@ import { UserRoutingModule } from './user-routing.module';
   ],
   imports: [
     CommonModule,
+    ClarityModule,
+    FormsModule,
     UserRoutingModule
   ]
 })
