@@ -10,55 +10,56 @@
   <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
   <clr-wizard-button [type]="'finish'">Done</clr-wizard-button>
 
-  <clr-wizard-page [clrWizardPageNextDisabled]="!personalDataValid">
+  <clr-wizard-page 
+    [clrWizardPageNextDisabled]="!this.personalDataForm.valid"
+    (clrWizardPageNext)="submitPersonalData()"
+  >
     <ng-template clrPageTitle>Fill in your personal data</ng-template>
     <ng-template clrPageNavTitle>Personal Data</ng-template>
 
-    <form clrForm clrLayout="horizontal">
+    <form clrForm clrLayout="horizontal" clrLabelSize="4" 
+      [formGroup]="personalDataForm"
+    >
       <clr-input-container>
         <label>Full Name</label>
-        <input clrInput type="text" name="fullName" placeholder="John Doe"
-          [(ngModel)]="personalData.name"
-          required 
+        <input clrInput type="text" formControlName="fullName" 
+          placeholder="John Doe"
         />
         <clr-control-error>{{ requiredMessage }}</clr-control-error>
       </clr-input-container>
 
       <clr-input-container>
         <label>Email</label>
-        <input clrInput type="email" name="email" placeholder="johndoe@gmail.com"
-          [(ngModel)]="personalData.email"
-          required 
+        <input clrInput type="email" formControlName="email" 
+          placeholder="johndoe@gmail.com" 
         />
         <clr-control-error>{{ requiredMessage }}</clr-control-error>
       </clr-input-container>
 
       <clr-textarea-container>
         <label>Description</label>
-        <textarea clrTextarea name="description"
+        <textarea clrTextarea formControlName="description"
           placeholder="I'm a front-end developer based in Barcelona."
-          [(ngModel)]="personalData.description"
-          required
         ></textarea>
+        <clr-control-error>{{ requiredMessage }}</clr-control-error>
       </clr-textarea-container>
 
       <!-- Country select, it will be a separate component for reusability -->
-      <clr-select-container>
-        
-      </clr-select-container>
+      <clr-input-container>
+        <input clrInput type="text" formControlName="country" />
+      </clr-input-container>
 
       <clr-input-container>
         <label>City</label>
-        <input clrInput type="text" name="city" placeholder="Barcelona"
-          [(ngModel)]="personalData.city"
-          required 
+        <input clrInput type="text" formControlName="city" 
+          placeholder="Barcelona" 
         />
         <clr-control-error>{{ requiredMessage }}</clr-control-error>
       </clr-input-container>
     </form>
   </clr-wizard-page>
 
-  <clr-wizard-page [clrWizardPageNextDisabled]="!avatarChosen">
+  <clr-wizard-page [clrWizardPageNextDisabled]="!isPersonalDataSaved">
     <ng-template clrPageTitle>Choose your avatar</ng-template>
     <ng-template clrPageNavTitle>Avatar</ng-template>
     <form>
@@ -66,7 +67,7 @@
     </form>
   </clr-wizard-page>
 
-  <clr-wizard-page>
+  <clr-wizard-page [clrWizardPageNextDisabled]="!isAvatarSaved">
     <ng-template clrPageTitle>Fill in your professional information</ng-template>
     <ng-template clrPageNavTitle>Professional Information</ng-template>
 

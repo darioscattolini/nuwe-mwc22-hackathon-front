@@ -14,15 +14,24 @@ export class UserService {
   ) {}
 
   public logIn(email: string, password: string) {
-    console.log(email, password);
     // here one should make Http call with email and password and get user data
-    const userData = '' // this.http...
+    // this.http...
+    const userData: User['personalData'] = '' as unknown as User['personalData'];
 
     if (userData) {
-      this.loggedUser = new User();   // userData should be used as parameters
+      this.loggedUser = new User(userData);
       return true;
     } else {
       return false;
     }
+  }
+
+  public submitPersonalData(data: User['personalData']) {
+    // here one should make Http call submitting personal data, returning if data
+    // could be saved or not
+    // this.http...
+    const valid = true;
+
+    return valid;
   }
 }

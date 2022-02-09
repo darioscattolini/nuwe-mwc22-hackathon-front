@@ -1,13 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-
-type PersonalData = {
-  name: string;
-  email: string;
-  description: string;
-  country: string;
-  city: string;
-};
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+import { User } from '../user.model';
 
 @Component({
   selector: 'mwc-signup',
@@ -15,23 +10,30 @@ type PersonalData = {
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent {
-  public avatarChosen = false;
+  public isAvatarSaved = false;
+  public isPersonalDataSaved = false;
 
-  public personalData: PersonalData = {
-    name: '',
-    email: '',
-    description: '',
-    country: '',
-    city: ''
-  };
-
-  public personalDataValid = false;
+  public personalDataForm = new FormGroup({
+    fullName: new FormControl('', Validators.required),
+    email: new FormControl('', Validators.required),
+    description: new FormControl('', Validators.required),
+    country: new FormControl('', Validators.required),
+    city: new FormControl('', Validators.required),
+  });
 
   public requiredMessage = 'This field cannot be empty';
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private userService: UserService
+  ) { }
 
   public cancel() {
     this.router.navigate(['']);
+  }
+
+  public submitPersonalData() {
+    const data: User['personalData'] = this.personalDataForm.value;
+    this.isPersonalDataSaved = this.userService.submitPersonalData(data);
   }
 }
