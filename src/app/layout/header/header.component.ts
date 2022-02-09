@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user/user.model';
-import { UserService } from 'src/app/user/user.service';
+import { UserService } from '../../user/services/user.service';
 
 @Component({
   selector: 'mwc-header',
