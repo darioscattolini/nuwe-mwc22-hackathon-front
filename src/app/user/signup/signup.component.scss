@@ -1,5 +1,9 @@
 clr-input-container input,
-clr-textarea-container textarea,
+clr-textarea-container textarea {
+  width: 321px;
+  max-width: 100%;
+}
+
 clr-select-container select {
-  width: 100%;
+  max-width: 100%;
 }
