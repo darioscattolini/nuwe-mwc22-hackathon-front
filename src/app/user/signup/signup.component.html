@@ -17,7 +17,7 @@
     <ng-template clrPageTitle>Fill in your personal data</ng-template>
     <ng-template clrPageNavTitle>Personal Data</ng-template>
 
-    <form clrForm clrLayout="horizontal" clrLabelSize="4" 
+    <form clrForm clrLayout="horizontal" clrLabelSize="3" 
       [formGroup]="personalDataForm"
     >
       <clr-input-container>
@@ -44,10 +44,15 @@
         <clr-control-error>{{ requiredMessage }}</clr-control-error>
       </clr-textarea-container>
 
-      <!-- Country select, it will be a separate component for reusability -->
-      <clr-input-container>
-        <input clrInput type="text" formControlName="country" />
-      </clr-input-container>
+      <clr-select-container>
+        <label>Country</label>
+        <select clrSelect formControlName="country">
+          <option *ngFor="let country of countries" value="{{ country.code }}">
+            {{ country.name }}
+          </option>
+        </select>
+        <clr-control-error>{{ requiredMessage }}</clr-control-error>
+      </clr-select-container>
 
       <clr-input-container>
         <label>City</label>

@@ -1,16 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { CountriesService } from '../services/countries.service';
 import { UserService } from '../services/user.service';
 import { User } from '../user.model';
+import { CountryData } from '../models/country-data';
 
 @Component({
   selector: 'mwc-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
-export class SignupComponent {
+export class SignupComponent implements OnInit {
+  public countries?: CountryData[];
+
   public isAvatarSaved = false;
+  
   public isPersonalDataSaved = false;
 
   public personalDataForm = new FormGroup({
@@ -25,11 +30,17 @@ export class SignupComponent {
 
   constructor(
     private router: Router,
+    private countriesService: CountriesService,
     private userService: UserService
   ) { }
 
   public cancel() {
     this.router.navigate(['']);
+  }
+
+  public ngOnInit(): void {
+    this.countriesService.getCountries()
+      .subscribe(countries => this.countries = countries);
   }
 
   public submitPersonalData() {
