@@ -12,6 +12,10 @@ import { CountryData } from '../models/country-data';
   styleUrls: ['./signup.component.scss']
 })
 export class SignupComponent implements OnInit {
+  public get avatarSrc() {
+    return `https://avatars.dicebear.com/api/human/${this.avatarSeed}.svg`;
+  }
+
   public countries?: CountryData[];
 
   public isAvatarSaved = false;
@@ -28,14 +32,20 @@ export class SignupComponent implements OnInit {
 
   public requiredMessage = 'This field cannot be empty';
 
+  private avatarSeed = this.generateRandomSeed();
+
   constructor(
     private router: Router,
     private countriesService: CountriesService,
     private userService: UserService
   ) { }
 
-  public cancel() {
+  public cancel(): void {
     this.router.navigate(['']);
+  }
+
+  public generateAvatar(): void {
+    this.avatarSeed = this.generateRandomSeed();
   }
 
   public ngOnInit(): void {
@@ -43,8 +53,16 @@ export class SignupComponent implements OnInit {
       .subscribe(countries => this.countries = countries);
   }
 
-  public submitPersonalData() {
+  public submitAvatar(): void {
+    this.isAvatarSaved = this.userService.submitAvatar(this.avatarSeed);
+  }
+
+  public submitPersonalData(): void {
     const data: User['personalData'] = this.personalDataForm.value;
     this.isPersonalDataSaved = this.userService.submitPersonalData(data);
+  }
+
+  private generateRandomSeed(): number {
+    return Math.random() * 1000000000;
   }
 }

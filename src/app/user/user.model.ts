@@ -7,5 +7,8 @@ type PersonalData = {
 };
 
 export class User {
-  constructor(public personalData: PersonalData) { }
+  constructor(
+    public personalData: PersonalData,
+    public avatarSeed: string
+  ) { }
 }

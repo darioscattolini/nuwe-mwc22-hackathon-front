@@ -64,12 +64,26 @@
     </form>
   </clr-wizard-page>
 
-  <clr-wizard-page [clrWizardPageNextDisabled]="!isPersonalDataSaved">
+  <clr-wizard-page 
+    [clrWizardPageNextDisabled]="!isPersonalDataSaved"
+    (clrWizardPageNext)="submitAvatar()"
+  >
     <ng-template clrPageTitle>Choose your avatar</ng-template>
     <ng-template clrPageNavTitle>Avatar</ng-template>
-    <form>
-      
-    </form>
+    
+    <p>
+      Click the <strong>GENERATE</strong> button to generate a new avatar. Click
+      the <strong>NEXT</strong> button to save the chosen avatar.
+    </p>
+
+    <div class="avatar-container">
+      <div>
+        <img [src]="avatarSrc" alt="Randomly generated avatar"/>
+      </div>
+      <button class="btn btn-primary" (click)="generateAvatar()">
+        Generate
+      </button>
+    </div>
   </clr-wizard-page>
 
   <clr-wizard-page [clrWizardPageNextDisabled]="!isAvatarSaved">

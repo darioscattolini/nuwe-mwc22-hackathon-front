@@ -15,10 +15,19 @@ export class UserService {
   public logIn(email: string, password: string) {
     // here one should make Http call with email and password and get user data
     // this.http...
-    const userData: User['personalData'] = '' as unknown as User['personalData'];
+    const userData = {
+      personalData: {
+        fullName: 'Darío Scattolini',
+        email: 'dario.scattolini@example.com',
+        description: 'Front-end developer based in Barcelona',
+        country: 'ESP',
+        city: 'Barcelona'
+      },
+      avatarSeed: '123456789'
+    };
 
     if (userData) {
-      this.loggedUser = new User(userData);
+      this.loggedUser = new User(userData.personalData, userData.avatarSeed);
       return true;
     } else {
       return false;
@@ -27,6 +36,15 @@ export class UserService {
 
   public submitPersonalData(data: User['personalData']) {
     // here one should make Http call submitting personal data, returning if data
+    // could be saved or not
+    // this.http...
+    const valid = false;
+
+    return valid;
+  }
+
+  public submitAvatar(seed: number) {
+    // here one should make Http call submitting avatar seed, returning if seed
     // could be saved or not
     // this.http...
     const valid = true;
