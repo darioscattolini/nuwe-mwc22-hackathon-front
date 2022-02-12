@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CountriesService } from '../services/countries.service';
 import { UserService } from '../services/user.service';
-import { User } from '../user.model';
+import { User } from '../models/user';
 import { CountryData } from '../models/country-data';
 
 @Component({
