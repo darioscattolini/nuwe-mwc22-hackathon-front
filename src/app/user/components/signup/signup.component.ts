@@ -8,6 +8,9 @@ import { UserService } from '../../services/user.service';
 import { CountryData } from '../../models/country-data';
 import { User } from '../../models/user';
 
+/**
+ * Creates Signup component
+ */
 @Component({
   selector: 'mwc-signup',
   templateUrl: './signup.component.html',
@@ -18,10 +21,20 @@ export class SignupComponent implements OnInit {
     return `https://avatars.dicebear.com/api/human/${this.avatarSeed}.svg`;
   }
 
-  public countries?: CountryData[];
+  /**
+   * Full list of country names and codes to populate options in country select
+   * field in form
+   */
+  public countries!: CountryData[];
 
+  /**
+   * Signals if sign up has failed
+   */
   public hasSignUpFailed = false;
 
+  /**
+   * Angular FormGroup containing controls for personal data form fields
+   */
   public personalDataForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -30,6 +43,9 @@ export class SignupComponent implements OnInit {
     city: new FormControl('', Validators.required),
   });
 
+  /**
+   * Angular FormGroup containing controls for professional data form fields
+   */
   public professionalDataForm = new FormGroup({
     yearsOfExperience: new FormControl('', [
       Validators.required, Validators.min(0)
@@ -38,31 +54,59 @@ export class SignupComponent implements OnInit {
     skills: new FormControl('', Validators.required)
   });
 
+  /**
+   * Message to be displayed for every form field where required validator fails
+   */
   public requiredMessage = 'This field cannot be empty';
 
+  /**
+   * Currently selected avatar seed
+   */
   private avatarSeed = this.generateRandomSeed();
 
+  /**
+   * Referece to the Clarity wizard component
+   */
   @ViewChild('wizard') wizard!: ClrWizard;
 
+  /**
+   * Creates Signup component
+   * @param {Router} router - Router dependency
+   * @param {CountriesService} countriesService - CountriesService dependency
+   * @param {UserService} userService - UserService dependency
+   */
   constructor(
     private router: Router,
     private countriesService: CountriesService,
     private userService: UserService
   ) { }
 
+  /**
+   * Executed if Sign Up Wizard is cancelled. Triggers navigation to home page.
+   */
   public cancel(): void {
     this.router.navigate(['']);
   }
 
+  /**
+   * Generates and stores a new avatar seed.
+   */
   public generateAvatar(): void {
     this.avatarSeed = this.generateRandomSeed();
   }
 
+  /**
+   * Angular component life-cycle hook. Used here to retrieve list of countries
+   * to populate country select field in form.
+   */
   public ngOnInit(): void {
     this.countriesService.getCountries()
       .subscribe(countries => this.countries = countries);
   }
 
+  /**
+   * Checks if email used for sign up is not already in use
+   */
   public async checkEmail(): Promise<void> {
     this.toggleNextStepDisabled();
     this.wizard.currentPage.nextStepDisabled = true;
@@ -81,6 +125,9 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  /**
+   * Submits sign up form after Wizard is completed
+   */
   public async submit() {
     this.toggleNextStepDisabled();
     this.hasSignUpFailed = false;
@@ -114,10 +161,17 @@ export class SignupComponent implements OnInit {
     }
   }
 
+  /**
+   * Generates a random 9-digit number
+   * @returns number
+   */
   private generateRandomSeed(): number {
     return Math.random() * 1000000000;
   }
 
+  /**
+   * Enables/disables the "next"/"finish" button of Wizard's current page
+   */
   private toggleNextStepDisabled(): void {
     const currentPage = this.wizard.currentPage;
     currentPage.nextStepDisabled = !currentPage.nextStepDisabled;

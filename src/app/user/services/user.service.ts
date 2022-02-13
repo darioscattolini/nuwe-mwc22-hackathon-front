@@ -2,19 +2,33 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../models/user';
 
+/**
+ * Builds User service
+ */
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  /**
+   * Currently logged user
+   */
   public loggedUser?: User;
 
+  /**
+   * Creates User service
+   * @param {HttpClient} http - Http client dependency
+   */
   constructor(
     private http: HttpClient
-  ) {
-    this.logIn('', '');
-  }
+  ) { }
 
-  public logIn(email: string, password: string) {
+  /**
+   * Attempts to log in with provided parameters
+   * @param email string
+   * @param password string
+   * @returns {boolean} Whether log in was successful
+   */
+  public logIn(email: string, password: string): boolean {
     // here one should make Http call with email and password and get user data
     // this.http...
     // below is simulated response
@@ -44,7 +58,13 @@ export class UserService {
     }
   }
 
-  public async checkEmail(email: string) {
+  /**
+   * Checks if the email being used for sign up is not already in use by
+   * registered user
+   * @param email string
+   * @returns {boolean} Whether the email is valid
+   */
+  public async checkEmail(email: string): Promise<boolean> {
     // http call to check if email is free and have it reserved for this sign up
     // this.http...
     // below is simulated response
@@ -56,13 +76,21 @@ export class UserService {
     return valid!;
   }
 
+  /**
+   * Logs current user out
+   */
   public logOut() {
     // http call to log out from server
 
     this.loggedUser = undefined;
   }
 
-  public async signUp(user: User) {
+  /**
+   * Attempts to fulfill sign up at the server
+   * @param user {User} User created from data provided at sign up
+   * @returns {boolean} Whether sign up is successful
+   */
+  public async signUp(user: User): Promise<boolean> {
     const userJson = JSON.stringify(user);
 
     // http call sending user data for sign up  
