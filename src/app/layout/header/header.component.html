@@ -26,7 +26,35 @@
 </header>
 
 <ng-template #isLogged>
-  Content to render when condition is true.
+  <div class="header-actions header-actions--overflow">
+    <clr-dropdown>
+      <button clrDropdownTrigger class="btn btn-link"
+        aria-label="open user menu"
+      >
+        <img class="avatar" 
+          [src]="loggedUser!.getAvatarSrc()" 
+          alt="User avatar" 
+        />
+
+        <span class="user-name">
+          <strong>{{ loggedUser!.personalData.fullName }}</strong>
+        </span>
+
+        <cds-icon class="dropdown-icon" shape="angle" direction="down">
+        </cds-icon>
+      </button>
+
+      <clr-dropdown-menu clrPosition="bottom-right" *clrIfOpen>
+        <a clrDropdownItem routerLink="/profile" aria-label="Go to your profile">
+          Profile
+        </a>
+
+        <a clrDropdownItem (click)="logOut()" aria-label="Log out">
+          Log out
+        </a>
+      </clr-dropdown-menu>
+    </clr-dropdown>
+  </div>
 </ng-template>
 
 <ng-template #isNotLogged>

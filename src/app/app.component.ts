@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import '@cds/core/icon/register.js';
-import { ClarityIcons, userIcon } from '@cds/core/icon';
+import { ClarityIcons, userIcon, angleIcon } from '@cds/core/icon';
 
-ClarityIcons.addIcons(userIcon);
+ClarityIcons.addIcons(userIcon, angleIcon);
 
 @Component({
   selector: 'mwc-root',

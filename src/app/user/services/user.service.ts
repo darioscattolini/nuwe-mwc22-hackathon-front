@@ -54,6 +54,12 @@ export class UserService {
     return valid!;
   }
 
+  public logOut() {
+    // http call to log out from server
+
+    this.loggedUser = undefined;
+  }
+
   public async signUp(user: User) {
     const userJson = JSON.stringify(user);
 

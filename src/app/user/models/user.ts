@@ -18,4 +18,8 @@ export class User {
     public avatarSeed: string,
     public professionalData: ProfessionalData
   ) { }
+
+  public getAvatarSrc() {
+    return `https://avatars.dicebear.com/api/human/${this.avatarSeed}.svg`;
+  }
 }

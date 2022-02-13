@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './header/header.component';
-import { ClrIconModule } from '@clr/angular';
+import { ClrDropdownModule, ClrIconModule } from '@clr/angular';
 import { RouterModule } from '@angular/router';
 import { UserModule } from '../user/user.module';
 
@@ -11,6 +11,7 @@ import { UserModule } from '../user/user.module';
   ],
   imports: [
     CommonModule,
+    ClrDropdownModule,
     ClrIconModule,
     RouterModule,
     UserModule
