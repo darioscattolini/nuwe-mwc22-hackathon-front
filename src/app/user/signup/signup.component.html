@@ -1,4 +1,4 @@
-<clr-wizard 
+<clr-wizard #wizard
   clrWizardSize="lg"
   [clrWizardOpen]="true" 
   (clrWizardOnCancel)="cancel()"
@@ -12,7 +12,8 @@
 
   <clr-wizard-page 
     [clrWizardPageNextDisabled]="!this.personalDataForm.valid"
-    (clrWizardPageNext)="submitPersonalData()"
+    [clrWizardPagePreventDefaultNext]="true"
+    (clrWizardPageNext)="checkEmail()"
   >
     <ng-template clrPageTitle>Fill in your personal data</ng-template>
     <ng-template clrPageNavTitle>Personal Data</ng-template>
@@ -33,9 +34,14 @@
         <input clrInput type="email" formControlName="email" 
           placeholder="johndoe@gmail.com" 
         />
-        <clr-control-error>{{ requiredMessage }}</clr-control-error>
+        <clr-control-error *clrIfError="'required'">
+          {{ requiredMessage }}
+        </clr-control-error>
+        <clr-control-error *clrIfError="'invalidEmail'">
+          There is already a user with this email
+        </clr-control-error>
       </clr-input-container>
-
+      
       <clr-textarea-container>
         <label>Description</label>
         <textarea clrTextarea formControlName="description"
@@ -64,10 +70,7 @@
     </form>
   </clr-wizard-page>
 
-  <clr-wizard-page 
-    [clrWizardPageNextDisabled]="!isPersonalDataSaved"
-    (clrWizardPageNext)="submitAvatar()"
-  >
+  <clr-wizard-page>
     <ng-template clrPageTitle>Choose your avatar</ng-template>
     <ng-template clrPageNavTitle>Avatar</ng-template>
     
@@ -86,7 +89,7 @@
     </div>
   </clr-wizard-page>
 
-  <clr-wizard-page [clrWizardPageNextDisabled]="!isAvatarSaved">
+  <clr-wizard-page>
     <ng-template clrPageTitle>Fill in your professional information</ng-template>
     <ng-template clrPageNavTitle>Professional Information</ng-template>
 

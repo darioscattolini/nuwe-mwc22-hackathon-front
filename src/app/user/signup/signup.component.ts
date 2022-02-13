@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ClrWizard } from '@clr/angular';
 import { CountriesService } from '../services/countries.service';
 import { UserService } from '../services/user.service';
-import { User } from '../models/user';
 import { CountryData } from '../models/country-data';
 
 @Component({
@@ -18,10 +18,6 @@ export class SignupComponent implements OnInit {
 
   public countries?: CountryData[];
 
-  public isAvatarSaved = false;
-  
-  public isPersonalDataSaved = false;
-
   public personalDataForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
@@ -33,6 +29,8 @@ export class SignupComponent implements OnInit {
   public requiredMessage = 'This field cannot be empty';
 
   private avatarSeed = this.generateRandomSeed();
+
+  @ViewChild('wizard') wizard!: ClrWizard;
 
   constructor(
     private router: Router,
@@ -53,13 +51,16 @@ export class SignupComponent implements OnInit {
       .subscribe(countries => this.countries = countries);
   }
 
-  public submitAvatar(): void {
-    this.isAvatarSaved = this.userService.submitAvatar(this.avatarSeed);
-  }
+  public async checkEmail(): Promise<void> {
+    const email = this.personalDataForm.controls['email'].value;
+    const isValidEmail = await this.userService.checkEmail(email);
 
-  public submitPersonalData(): void {
-    const data: User['personalData'] = this.personalDataForm.value;
-    this.isPersonalDataSaved = this.userService.submitPersonalData(data);
+    if (isValidEmail) {
+      this.wizard.next();
+    } else {
+      this.personalDataForm.controls['email']
+        .setErrors({ invalidEmail: true });
+    }
   }
 
   private generateRandomSeed(): number {

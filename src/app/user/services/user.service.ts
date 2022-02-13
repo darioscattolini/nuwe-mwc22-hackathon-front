@@ -34,13 +34,16 @@ export class UserService {
     }
   }
 
-  public submitPersonalData(data: User['personalData']) {
-    // here one should make Http call submitting personal data, returning if data
-    // could be saved or not
+  public async checkEmail(email: string) {
+    // http call to check if email is free and have it reserved for this sign up
     // this.http...
-    const valid = false;
+    let valid: boolean;
+    
+    await setTimeout(() => {
+      valid = true;
+    }, 10000);
 
-    return valid;
+    return valid!;
   }
 
   public submitAvatar(seed: number) {
