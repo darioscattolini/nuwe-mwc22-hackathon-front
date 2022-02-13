@@ -36,12 +36,11 @@ export class UserService {
 
   public async checkEmail(email: string) {
     // http call to check if email is free and have it reserved for this sign up
-    // this.http...
-    let valid: boolean;
-    
-    await setTimeout(() => {
-      valid = true;
-    }, 10000);
+    // this.http...   
+    const valid = false;
+
+    // simulate async response
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
 
     return valid!;
   }
