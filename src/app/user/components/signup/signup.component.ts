@@ -3,10 +3,10 @@ import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClrWizard } from '@clr/angular';
 import { take } from 'rxjs';
-import { CountriesService } from '../services/countries.service';
-import { UserService } from '../services/user.service';
-import { CountryData } from '../models/country-data';
-import { User } from '../models/user';
+import { CountriesService } from '../../services/countries.service';
+import { UserService } from '../../services/user.service';
+import { CountryData } from '../../models/country-data';
+import { User } from '../../models/user';
 
 @Component({
   selector: 'mwc-signup',
