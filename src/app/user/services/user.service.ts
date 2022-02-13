@@ -37,7 +37,7 @@ export class UserService {
   public async checkEmail(email: string) {
     // http call to check if email is free and have it reserved for this sign up
     // this.http...   
-    const valid = false;
+    const valid = true;
 
     // simulate async response
     await new Promise(resolve => setTimeout(resolve, 1000)); 

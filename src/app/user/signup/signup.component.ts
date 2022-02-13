@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ClrWizard } from '@clr/angular';
+import { take } from 'rxjs';
 import { CountriesService } from '../services/countries.service';
 import { UserService } from '../services/user.service';
 import { CountryData } from '../models/country-data';
@@ -52,18 +53,29 @@ export class SignupComponent implements OnInit {
   }
 
   public async checkEmail(): Promise<void> {
-    const email = this.personalDataForm.controls['email'].value;
-    const isValidEmail = await this.userService.checkEmail(email);
+    this.toggleNextStepDisabled();
+    this.wizard.currentPage.nextStepDisabled = true;
+
+    const emailControl = this.personalDataForm.controls['email'];
+    const isValidEmail = await this.userService.checkEmail(emailControl.value);
 
     if (isValidEmail) {
+      this.toggleNextStepDisabled();
       this.wizard.next();
     } else {
-      this.personalDataForm.controls['email']
-        .setErrors({ invalidEmail: true });
+      emailControl.setErrors({ invalidEmail: true });
+      emailControl.valueChanges
+        .pipe(take(1))
+        .subscribe(() => { this.toggleNextStepDisabled(); });
     }
   }
 
   private generateRandomSeed(): number {
     return Math.random() * 1000000000;
+  }
+
+  private toggleNextStepDisabled(): void {
+    const currentPage = this.wizard.currentPage;
+    currentPage.nextStepDisabled = !currentPage.nextStepDisabled;
   }
 }
