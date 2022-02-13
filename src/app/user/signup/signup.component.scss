@@ -1,4 +1,5 @@
-clr-input-container input,
+clr-input-container input[type="text"],
+clr-input-container input[type="email"],
 clr-textarea-container textarea {
   width: 321px;
   max-width: 100%;
@@ -6,6 +7,10 @@ clr-textarea-container textarea {
 
 clr-select-container select {
   max-width: 100%;
+}
+
+clr-input-container {
+  align-items: center;
 }
 
 .avatar-container {

@@ -27,6 +27,14 @@ export class SignupComponent implements OnInit {
     city: new FormControl('', Validators.required),
   });
 
+  public professionalDataForm = new FormGroup({
+    yearsOfExperience: new FormControl('', [
+      Validators.required, Validators.min(0)
+    ]),
+    sector: new FormControl('', Validators.required),
+    skills: new FormControl('', Validators.required)
+  });
+
   public requiredMessage = 'This field cannot be empty';
 
   private avatarSeed = this.generateRandomSeed();

@@ -10,6 +10,42 @@
   <clr-wizard-button [type]="'next'">Next</clr-wizard-button>
   <clr-wizard-button [type]="'finish'">Done</clr-wizard-button>
 
+  <clr-wizard-page>
+    <ng-template clrPageTitle>Fill in your professional information</ng-template>
+    <ng-template clrPageNavTitle>Professional Information</ng-template>
+
+    <form clrForm clrLayout="horizontal" clrLabelSize="3" 
+      [formGroup]="professionalDataForm"
+    >
+      <clr-input-container>
+        <label>Years of Experience</label>
+        <input clrInput type="number" formControlName="yearsOfExperience" 
+          placeholder="2" min="0"
+        />
+        <clr-control-error>{{ requiredMessage }}</clr-control-error>
+      </clr-input-container>
+
+      <clr-select-container>
+        <label>Sector</label>
+        <select clrSelect formControlName="sector">
+          <option value="front-end">Front-end</option>
+          <option value="back-end">Back-end</option>
+          <option value="data-science">Data science</option>
+        </select>
+        <clr-control-error>{{ requiredMessage }}</clr-control-error>
+      </clr-select-container>
+
+      <clr-input-container>
+        <label>Skills</label>
+        <input clrInput type="text" formControlName="skills" 
+          placeholder="Angular"
+        />
+        <clr-control-error>{{ requiredMessage }}</clr-control-error>
+      </clr-input-container>
+      
+    </form>
+  </clr-wizard-page>
+
   <clr-wizard-page 
     [clrWizardPageNextDisabled]="!this.personalDataForm.valid"
     [clrWizardPagePreventDefaultNext]="true"
@@ -89,12 +125,5 @@
     </div>
   </clr-wizard-page>
 
-  <clr-wizard-page>
-    <ng-template clrPageTitle>Fill in your professional information</ng-template>
-    <ng-template clrPageNavTitle>Professional Information</ng-template>
-
-    <form>
-      
-    </form>
-  </clr-wizard-page>
+  
 </clr-wizard>
