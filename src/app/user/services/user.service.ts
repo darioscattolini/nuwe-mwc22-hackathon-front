@@ -10,7 +10,9 @@ export class UserService {
 
   constructor(
     private http: HttpClient
-  ) {}
+  ) {
+    this.logIn('', '');
+  }
 
   public logIn(email: string, password: string) {
     // here one should make Http call with email and password and get user data

@@ -1,1 +1,65 @@
-<p>profile works!</p>
+<div class="profile-header">
+  <img class="avatar"
+    [src]="user.getAvatarSrc()" 
+    [alt]="user.personalData.fullName + '\'s avatar'"
+  >
+  <h1>{{ user.personalData.fullName }}</h1>
+</div>
+
+<div class="two-columns">
+  <div>
+    <h2>Personal Data</h2>
+
+    <table class="table table-vertical">
+      <tbody>
+        <tr>
+          <th>Full Name</th>
+          <td>{{ user.personalData.fullName }}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{ user.personalData.email }}</td>
+        </tr>
+        <tr>
+          <th>Description</th>
+          <td>{{ user.personalData.description }}</td>
+        </tr>
+        <tr>
+          <th>Country</th>
+          <td>{{ country }}</td>
+        </tr>
+        <tr>
+          <th>City</th>
+          <td>{{ user.personalData.city }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div>
+    <h2>Professional Data</h2>
+
+    <table class="table table-vertical">
+      <tbody>
+        <tr>
+          <th>Experience</th>
+          <td>{{ user.professionalData.yearsOfExperience }} year</td>
+        </tr>
+        <tr>
+          <th>Sector</th>
+          <td>{{ sector }}</td>
+        </tr>
+        <tr>
+          <th>Skills</th>
+          <td>
+            <span *ngFor="let skill of user.professionalData.skills" 
+              class="label"
+            >
+              {{ skill }}
+            </span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

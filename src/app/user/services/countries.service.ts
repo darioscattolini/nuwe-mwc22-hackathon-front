@@ -45,6 +45,17 @@ export class CountriesService {
     });
   }
 
+  public getCountryName(code: string): Observable<string> {
+    return new Observable(observer => {
+      this.getCountries()
+        .subscribe(countries => {
+          const country = countries.find(country => country.code === code);
+          observer.next(country?.name);
+          observer.complete();
+        });
+    });
+  }
+
   private getCountryDataTransformer(): DataTransformer {
     return countries => countries
       .map(country => {
