@@ -59,7 +59,7 @@ export class UserService {
 
     // http call sending user data for sign up  
     // below is simulated response
-    const valid = false;
+    const valid = true;
 
     // simulate async response
     await new Promise(resolve => setTimeout(resolve, 1000)); 
