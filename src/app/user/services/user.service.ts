@@ -15,6 +15,7 @@ export class UserService {
   public logIn(email: string, password: string) {
     // here one should make Http call with email and password and get user data
     // this.http...
+    // below is simulated response
     const userData = {
       personalData: {
         fullName: 'Darío Scattolini',
@@ -23,11 +24,18 @@ export class UserService {
         country: 'ESP',
         city: 'Barcelona'
       },
-      avatarSeed: '123456789'
+      avatarSeed: '123456789',
+      professionalData: {
+        yearsOfExperience: 2,
+        sector: 'front-end' as User['professionalData']['sector'],
+        skills: ['Angular', 'CSS', 'HTML']
+      }
     };
 
     if (userData) {
-      this.loggedUser = new User(userData.personalData, userData.avatarSeed);
+      this.loggedUser = new User(
+        userData.personalData, userData.avatarSeed, userData.professionalData
+      );
       return true;
     } else {
       return false;
@@ -36,7 +44,8 @@ export class UserService {
 
   public async checkEmail(email: string) {
     // http call to check if email is free and have it reserved for this sign up
-    // this.http...   
+    // this.http...
+    // below is simulated response
     const valid = true;
 
     // simulate async response
@@ -45,12 +54,18 @@ export class UserService {
     return valid!;
   }
 
-  public submitAvatar(seed: number) {
-    // here one should make Http call submitting avatar seed, returning if seed
-    // could be saved or not
-    // this.http...
-    const valid = true;
+  public async signUp(user: User) {
+    const userJson = JSON.stringify(user);
 
-    return valid;
+    // http call sending user data for sign up  
+    // below is simulated response
+    const valid = false;
+
+    // simulate async response
+    await new Promise(resolve => setTimeout(resolve, 1000)); 
+
+    if (valid) this.loggedUser = user;
+
+    return valid!;
   }
 }

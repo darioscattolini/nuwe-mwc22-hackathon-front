@@ -6,6 +6,7 @@ import { take } from 'rxjs';
 import { CountriesService } from '../services/countries.service';
 import { UserService } from '../services/user.service';
 import { CountryData } from '../models/country-data';
+import { User } from '../models/user';
 
 @Component({
   selector: 'mwc-signup',
@@ -18,6 +19,8 @@ export class SignupComponent implements OnInit {
   }
 
   public countries?: CountryData[];
+
+  public hasSignUpFailed = false;
 
   public personalDataForm = new FormGroup({
     fullName: new FormControl('', Validators.required),
@@ -75,6 +78,39 @@ export class SignupComponent implements OnInit {
       emailControl.valueChanges
         .pipe(take(1))
         .subscribe(() => { this.toggleNextStepDisabled(); });
+    }
+  }
+
+  public async submit() {
+    this.toggleNextStepDisabled();
+    this.hasSignUpFailed = false;
+    const personalData = this.personalDataForm.controls;
+    const professionalData = this.professionalDataForm.controls;
+
+    const user = new User(
+      {
+        fullName: personalData['fullName'].value,
+        email: personalData['email'].value,
+        description: personalData['description'].value,
+        country: personalData['country'].value,
+        city: personalData['city'].value
+      },
+      String(this.avatarSeed),
+      {
+        yearsOfExperience: Number(professionalData['yearsOfExperience'].value),
+        sector: professionalData['sector'].value,
+        skills: professionalData['skills'].value.split(',')
+      }
+    );
+
+    const submitted = await this.userService.signUp(user);
+
+    if (submitted) {
+      this.wizard.finish();
+      this.router.navigate(['']);
+    } else {
+      this.hasSignUpFailed = true;
+      this.toggleNextStepDisabled();
     }
   }
 

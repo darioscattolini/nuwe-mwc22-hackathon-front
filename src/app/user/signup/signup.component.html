@@ -1,6 +1,6 @@
 <clr-wizard #wizard
   clrWizardSize="lg"
-  [clrWizardOpen]="true" 
+  [clrWizardOpen]="true"
   (clrWizardOnCancel)="cancel()"
 >
   <clr-wizard-title>Sign Up</clr-wizard-title>
@@ -89,7 +89,10 @@
     </div>
   </clr-wizard-page>
 
-  <clr-wizard-page>
+  <clr-wizard-page 
+    [clrWizardPagePreventDefaultNext]="true"
+    (clrWizardPageFinish)="submit()"
+  >
     <ng-template clrPageTitle>Fill in your professional information</ng-template>
     <ng-template clrPageNavTitle>Professional Information</ng-template>
 
@@ -125,5 +128,9 @@
         </clr-control-helper>
       </clr-input-container>
     </form>
+
+    <clr-alert [clrAlertType]="'danger'" *ngIf="hasSignUpFailed">
+      We have failed to sign you up, please try again.
+    </clr-alert>
   </clr-wizard-page>
 </clr-wizard>
